@@ -6,6 +6,12 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
+# Header-only library: the CMake config installs to <prefix>/lib/cmake/ezpwd
+# (the conventional location, found by vcpkg's toolchain) and headers to
+# include/ in both configs (harmless debug duplicate).  Acknowledge both.
+set(VCPKG_POLICY_ALLOW_DEBUG_INCLUDE enabled)
+set(VCPKG_POLICY_SKIP_MISPLACED_CMAKE_FILES_CHECK enabled)
+
 # Header-only library: configure, build the test-suite (vcpkg runs CTest
 # automatically), and install the headers + CMake package config.
 vcpkg_cmake_configure(
